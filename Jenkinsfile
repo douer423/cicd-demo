@@ -39,7 +39,7 @@ pipeline {
                  
             steps {
 					script{
-                         def customImage = docker.build registry + ":$BUILD_NUMBER"
+                         def dockerImage= docker.build registry + ":$BUILD_NUMBER"
 						 }
                   }
          }
