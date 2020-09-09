@@ -28,8 +28,8 @@ pipeline {
         }
 
         stage('Build Deploy Code') {
-	    steps {
-		sh 'echo 123'
+	    if (BRANCH_NAME.startsWith("master/")) {
+		sh '/usr/local/apache-maven-3.3.9/bin/mvn package'
 		}
          }
     }   
