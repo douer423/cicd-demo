@@ -24,7 +24,7 @@ pipeline {
             steps {
                 checkout([
                     $class: 'GitSCM', 
-                    branches: [[name: '*/master']], 
+                    branches: scm.branches,
                     userRemoteConfigs: [[url: 'https://github.com/douer423/cicd-demo.git']]
                 ])
             }
@@ -41,6 +41,12 @@ pipeline {
                 """
                 sh '/usr/local/apache-maven-3.3.9/bin/mvn package'
                  }
+            when {
+		branch 'dev'
+	 	}
+	    steps {
+		sh 'dev branch'
+		}
          }
     }   
 }
