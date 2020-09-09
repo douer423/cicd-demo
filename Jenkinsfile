@@ -6,9 +6,9 @@ pipeline {
     }
     
     tools{
-	maven 'Maven'
-	jdk 'jdk8'
-	}
+        maven 'Maven'
+        jdk 'jdk8'
+        }
 
     stages {
         stage('Cleanup Workspace') {
@@ -28,11 +28,20 @@ pipeline {
         }
 
         stage('Build Deploy Code') {
-	    steps {
-	           if ($BRANCH_NAME == "master") {
-	        	sh '/usr/local/apache-maven-3.3.9/bin/mvn package'
-		    }
+            steps {
+                        sh '/usr/local/apache-maven-3.3.9/bin/mvn package'
                   }
          }
+		 
+        stage('Build docker master') {
+	    when {
+                branch 'master' 
+               }
+		 
+            steps {
+                        sh 'echo master'
+                  }
+         }
+		 
     }   
 }
