@@ -4,6 +4,11 @@ pipeline {
             label 'master'
         }
     }
+    
+    tools{
+	maven 'Maven'
+	jdk 'jdk8'
+	}
 
     stages {
         stage('Cleanup Workspace') {
@@ -24,10 +29,6 @@ pipeline {
                 ])
             }
         }
-
-        //定义mvn环境
-        def mvnHome = tool 'Maven'
-        env.PATH = "${mvnHome}/bin:${env.PATH}"
 
         stage('Build Deploy Code') {
             when {
