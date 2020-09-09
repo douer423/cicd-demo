@@ -28,9 +28,11 @@ pipeline {
         }
 
         stage('Build Deploy Code') {
-	    if (BRANCH_NAME.startsWith("master/")) {
-		sh '/usr/local/apache-maven-3.3.9/bin/mvn package'
-		}
+	    steps {
+	           if (BRANCH_NAME.startsWith("master/")) {
+	        	sh '/usr/local/apache-maven-3.3.9/bin/mvn package'
+		    }
+                  }
          }
     }   
 }
