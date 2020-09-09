@@ -34,9 +34,7 @@ pipeline {
                 sh """
                 echo "Building Artifact with Maven"
                 """
-                sh """
-                mvn package
-                """
+                sh 'mvn package'
             }
         }
     }   
