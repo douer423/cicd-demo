@@ -20,7 +20,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM', 
                     branches: [[name: '*/master']], 
-                    userRemoteConfigs: [[url: 'https://github.com/douer423/cicd.git']]
+                    userRemoteConfigs: [[url: 'https://github.com/douer423/cicd-demo.git']]
                 ])
             }
         }
