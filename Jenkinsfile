@@ -5,13 +5,6 @@ pipeline {
         }
     }
 
-    options {
-        buildDiscarder logRotator( 
-                    daysToKeepStr: '16', 
-                    numToKeepStr: '10'
-            )
-    }
-
     stages {
         stage('Cleanup Workspace') {
             steps {
@@ -26,8 +19,8 @@ pipeline {
             steps {
                 checkout([
                     $class: 'GitSCM', 
-                    branches: [[name: '*/main']], 
-                    userRemoteConfigs: [[url: 'https://github.com/spring-projects/spring-petclinic.git']]
+                    branches: [[name: '*/master']], 
+                    userRemoteConfigs: [[url: 'https://github.com/douer423/cicd.git']]
                 ])
             }
         }
@@ -35,16 +28,14 @@ pipeline {
         stage('Build Deploy Code') {
 
             when {
-
                 branch 'master'
-
             }
 
             steps {
 
                 sh """
 
-                echo "Building Artifact"
+                echo "master Building Artifact"
 
                 """
 
