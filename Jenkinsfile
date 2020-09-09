@@ -26,12 +26,6 @@ pipeline {
                 echo "current branch: $BRANCH_NAME"
             }
         }
-
-        stage('Build Deploy Code') {
-            steps {
-                        sh '/usr/local/apache-maven-3.3.9/bin/mvn package'
-                  }
-         }
                  
         stage('Build docker master') {
             when {
@@ -39,15 +33,11 @@ pipeline {
                }
                  
             steps {
-               script {
-           	      docker.withRegistry('https://hub.docker.com/', 'douer423-docker') 
-
-                	def customImage = docker.build("cicd-demo:master")
-
-              		  /* Push the container to the custom Registry */
-               		 customImage.push()
+					script{
+                         def customImage = docker.build("cicd-demo:${env.BUILD_ID}")
+						 }
                   }
-		 }
-         }               
+         }
+                 
     }   
 }
