@@ -34,7 +34,7 @@ pipeline {
                 sh """
                 echo "Building Artifact with Maven"
                 """
-                sh 'mvn package'
+                sh '/usr/local/apache-maven-3.3.9/bin/mvn package'
             }
         }
     }   
