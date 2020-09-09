@@ -22,17 +22,14 @@ pipeline {
 
         stage('Code Checkout') {
             steps {
-                checkout([
-                    $class: 'GitSCM', 
-                    branches: scm.branches,
-                    userRemoteConfigs: [[url: 'https://github.com/douer423/cicd-demo.git']]
-                ])
+                checkout scm
+                echo "current branch: $BRANCH_NAME"
             }
         }
 
         stage('Build Deploy Code') {
 	    steps {
-		sh 'echo $env.BRANCH_NAME'
+		sh 'echo 123'
 		}
          }
     }   
