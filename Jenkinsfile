@@ -42,7 +42,7 @@ pipeline {
 					script{
                          def dockerImage= docker.build registry + ":master"
                              docker.withRegistry( '', registryCredential ) {
-                             dockerImage.push("douer423/cicd-demo:master")
+                             dockerImage.push()
                               }
 			 }
                   }
