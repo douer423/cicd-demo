@@ -26,23 +26,16 @@ pipeline {
         }
 
         stage('Build Deploy Code') {
-
             when {
                 branch 'master'
             }
 
             steps {
-
                 sh """
-
-                echo "master Building Artifact"
-
+                echo "Building Artifact with Maven"
                 """
-
                 sh """
-
-                echo "Deploying Code"
-
+                mvn package
                 """
             }
         }
