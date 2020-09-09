@@ -34,7 +34,7 @@ pipeline {
                  
             steps {
 					script{
-                         def customImage = docker.build("cicd-demo:${env.BUILD_ID}")
+                         def customImage = docker.build("cicd-demo:master}")
 						 }
                   }
          }
