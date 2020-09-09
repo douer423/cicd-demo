@@ -49,7 +49,7 @@ pipeline {
       steps{
         script {
           docker.withRegistry( '', registryCredential ) {
-            dockerImage.push registry + ":master"
+            dockerImage.push( registry + ":master" )
           }
         }
       }
