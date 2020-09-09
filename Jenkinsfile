@@ -1,5 +1,4 @@
-node {
-    def app
+pipeline {
     agent {
         node {
             label 'master'
@@ -10,24 +9,35 @@ node {
         maven 'Maven'
         jdk 'jdk8'
         }
-    stage('Cleanup Workspace') {
-        steps {
-            cleanWs()
-            sh """
-            echo "Cleaned Up Workspace For Project"
-            """
+
+    stages {
+        stage('Cleanup Workspace') {
+            steps {
+                cleanWs()
+                sh """
+                echo "Cleaned Up Workspace For Project"
+                """
+            }
         }
-    }
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
 
-        checkout scm
-    }
-
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-
-        app = docker.build("douer423/cicd-demo")
-    }
+        stage('Code Checkout') {
+            steps {
+                checkout scm
+                echo "current branch: $BRANCH_NAME"
+            }
+        }
+                 
+        stage('Build docker master') {
+            when {
+                branch 'master' 
+               }
+                 
+            steps {
+					script{
+                         def customImage = docker.build("douer423/cicd-demo:master}")
+						 }
+                  }
+         }
+                 
+    }   
 }
