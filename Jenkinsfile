@@ -25,6 +25,10 @@ pipeline {
             }
         }
 
+        //定义mvn环境
+        def mvnHome = tool 'Maven'
+        env.PATH = "${mvnHome}/bin:${env.PATH}"
+
         stage('Build Deploy Code') {
             when {
                 branch 'master'
