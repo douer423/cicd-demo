@@ -40,7 +40,7 @@ pipeline {
                  
             steps {
 					script{
-                         def dockerImage= docker.build registry + ":$BUILD_NUMBER"
+                         def dockerImage= docker.build registry + ":master"
 						 }
                   }
          }
@@ -49,7 +49,7 @@ pipeline {
       steps{
         script {
           docker.withRegistry( '', registryCredential ) {
-            dockerImage.push registry + ":$BUILD_NUMBER"
+            dockerImage.push registry + ":master"
           }
         }
       }
