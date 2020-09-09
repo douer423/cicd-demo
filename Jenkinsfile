@@ -13,6 +13,7 @@ pipeline {
 	environment {
 		registry = "douer423/cicd-demo"
 		registryCredential = 'douer423-docker'
+                dockerImage = ''
 		}
 
     stages {
