@@ -9,6 +9,11 @@ pipeline {
         maven 'Maven'
         jdk 'jdk8'
         }
+		
+	environment {
+		registry = "douer423/cicd-demo"
+		registryCredential = 'douer423-docker'
+		}
 
     stages {
         stage('Cleanup Workspace') {
@@ -34,7 +39,7 @@ pipeline {
                  
             steps {
 					script{
-                         def customImage = docker.build("douer423/cicd-demo:master}")
+                         def customImage = docker.build registry + ":$BUILD_NUMBER"
 						 }
                   }
          }
