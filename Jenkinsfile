@@ -2,8 +2,8 @@ pipeline {
     agent {
         node {
             label 'master'
-        }
-    }
+             }
+          }
     
     tools{
         maven 'Maven'
@@ -32,21 +32,21 @@ pipeline {
                         sh '/usr/local/apache-maven-3.3.9/bin/mvn package'
                   }
          }
-		 
+                 
         stage('Build docker master') {
-	    when {
+            when {
                 branch 'master' 
                }
-		 
+                 
             steps {
-   		 docker.withRegistry('https://hub.docker.com/', 'douer423-docker') {
+                 docker.withRegistry('https://hub.docker.com/', 'douer423-docker') 
 
-       			 def customImage = docker.build("cicd-demo:${env.BUILD_ID}")
+                         def customImage = docker.build("cicd-demo:master")
 
-       			 /* Push the container to the custom Registry */
+                         /* Push the container to the custom Registry */
                          customImage.push()
                   }
          }
-		 
+                 
     }   
 }
