@@ -31,21 +31,8 @@ pipeline {
         }
 
         stage('Build Deploy Code') {
-            when {
-                branch 'master'
-            }
-
-            steps {
-                sh """
-                echo "Building Artifact with Maven"
-                """
-                sh '/usr/local/apache-maven-3.3.9/bin/mvn package'
-                 }
-            when {
-		branch 'dev'
-	 	}
 	    steps {
-		sh 'dev branch'
+		sh 'echo $env.BRANCH_NAME'
 		}
          }
     }   
