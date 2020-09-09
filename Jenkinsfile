@@ -39,14 +39,15 @@ pipeline {
                }
                  
             steps {
-                 docker.withRegistry('https://hub.docker.com/', 'douer423-docker') 
+               script {
+           	      docker.withRegistry('https://hub.docker.com/', 'douer423-docker') 
 
-                         def customImage = docker.build("cicd-demo:master")
+                	def customImage = docker.build("cicd-demo:master")
 
-                         /* Push the container to the custom Registry */
-                         customImage.push()
+              		  /* Push the container to the custom Registry */
+               		 customImage.push()
                   }
-         }
-                 
+		 }
+         }               
     }   
 }
