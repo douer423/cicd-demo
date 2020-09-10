@@ -28,6 +28,7 @@ pipeline {
 
         stage('Code Checkout') {
             steps {
+                checkout scm
                 echo "current branch: $BRANCH_NAME"
             }
         }
