@@ -28,27 +28,19 @@ pipeline {
 
         stage('Code Checkout') {
             steps {
-                checkout scm
                 echo "current branch: $BRANCH_NAME"
             }
         }
                  
         stage('Build docker master') {
-            when {
-                branch 'master' 
-               }
-                 
             steps {
-					script{
+		script{
                          def dockerImage= docker.build registry + "v:$BUILD_NUMBER"
-                             docker.withRegistry( '', registryCredential ) {
-                             dockerImage.push()
+                         docker.withRegistry( '', registryCredential ) {
+                                                                          dockerImage.push()
                               }
 			 }
                   }
          }
-
-
-
     }   
 }
