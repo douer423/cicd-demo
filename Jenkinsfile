@@ -27,9 +27,10 @@ pipeline {
               }
           }
 
-      stage('Code Checkout') {
+      stage('Code Checkout and build') {
         steps {
                 checkout scm
+		sh 'mvn clean package'
                 echo "current branch: $BRANCH_NAME"
               }
           }
@@ -37,7 +38,7 @@ pipeline {
       stage('Build docker master') {
         steps {
 		script{
-                         def dockerImage= docker.build registry + "v:$BUILD_NUMBER"
+                         def dockerImage= docker.build registry + ":$BUILD_NUMBER"
                          docker.withRegistry( '', registryCredential ) {
                                                                           dockerImage.push()
                               }
@@ -46,12 +47,5 @@ pipeline {
          }
 
 
-      stage('Doploy images') {
-	steps {
-		withCredentials([kubeconfigFile(credentialsId: 'alik8s', variable: 'KUBECONFIG')]) {
- 		 sh 'kubectl get pods' 
-			}	
-		}
-	}
     }   
 }
