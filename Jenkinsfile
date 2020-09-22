@@ -10,31 +10,31 @@ pipeline {
         jdk 'jdk8'
         }
 		
-	environment {
+    environment {
 		registry = "douer423/cicd-demo"
 		registryCredential = 'douer423-docker'
                 dockerImage = ''
 		}
 
     stages {
-        stage('Cleanup Workspace') {
-            steps {
-                cleanWs()
-                sh """
-                echo "Cleaned Up Workspace For Project"
-                """
-            }
-        }
+      stage('Cleanup Workspace') {
+        steps {
+               cleanWs()
+               sh """
+               echo "Cleaned Up Workspace For Project"
+               """
+              }
+          }
 
-        stage('Code Checkout') {
-            steps {
+      stage('Code Checkout') {
+        steps {
                 checkout scm
                 echo "current branch: $BRANCH_NAME"
-            }
-        }
+              }
+          }
                  
-        stage('Build docker master') {
-            steps {
+      stage('Build docker master') {
+        steps {
 		script{
                          def dockerImage= docker.build registry + "v:$BUILD_NUMBER"
                          docker.withRegistry( '', registryCredential ) {
@@ -43,5 +43,14 @@ pipeline {
 			 }
                   }
          }
+
+
+      stage('Doploy images') {
+	steps {
+               withKubeConfig([credentialsId: 'alik6s',
+                              ])
+                script { sh 'kubectl get pods' }
+		}
+	}
     }   
 }
