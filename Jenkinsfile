@@ -47,7 +47,7 @@ pipeline {
 
       stage('Doploy images') {
 	steps {
-               withKubeConfig([credentialsId: 'alik6s',
+               withKubeConfig([credentialsId: 'alik8s',
                               ])
                 script { sh 'kubectl get pods' }
 		}
