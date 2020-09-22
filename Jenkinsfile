@@ -14,6 +14,7 @@ pipeline {
 		registry = "douer423/cicd-demo"
 		registryCredential = 'douer423-docker'
                 dockerImage = ''
+		KUBECONFIG = '/home/u21699691/kubeconfig'
 		}
 
     stages {
@@ -47,9 +48,9 @@ pipeline {
 
       stage('Doploy images') {
 	steps {
-               withKubeConfig([credentialsId: 'alik8s',
-                              ])
-                script { sh 'kubectl get pods' }
+		withCredentials([kubeconfigFile(credentialsId: 'alik8s', variable: 'KUBECONFIG')]) {
+ 		 sh 'kubectl get pods' 
+			}	
 		}
 	}
     }   
