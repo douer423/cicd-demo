@@ -31,6 +31,8 @@ pipeline {
 	steps {
 		sh "echo ${k8s_config} > ~/config" 
  		sh 'kubectl get all' 
+		sh 'kubectl apply -f helloworld.yml'
+		sh 'kubectl apply -f helloworld-nodeport-service.yml'
 			}	
 		}
 	}
