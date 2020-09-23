@@ -46,6 +46,14 @@ pipeline {
                   }
          }
 
+      stage('Doploy images') {
+	steps {
+		withCredentials([kubeconfigFile(credentialsId: 'alik8s', variable: 'KUBECONFIG')]) {
+ 		 sh 'kubectl get pods' 
+			}	
+		}
+	}
+
 
     }   
 }
