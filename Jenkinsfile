@@ -27,6 +27,13 @@ pipeline {
               }
           }
 
+      stage('Code Checkout') {
+        steps {
+                checkout scm
+                echo "current branch: $BRANCH_NAME"
+              }
+          }
+
       stage('Doploy images') {
 	steps {
 		sh "echo ${k8s_config} > ~/config" 
