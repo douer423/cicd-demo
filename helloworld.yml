@@ -17,4 +17,4 @@ spec:
         image: douer423/cicd-demo:tag
         ports:
         - name: nodejs-port
-          containerPort: 8080
+          containerPort: 8084
