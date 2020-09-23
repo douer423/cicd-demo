@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: k8s-springboot
-        image: klee2020/helloworldv2:1.0
+        image: douer423/cicd-demo:tag
         ports:
         - name: nodejs-port
           containerPort: 8080
