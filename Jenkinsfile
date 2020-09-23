@@ -14,7 +14,7 @@ pipeline {
 		registry = "douer423/cicd-demo"
 		registryCredential = 'douer423-docker'
                 dockerImage = ''
-		KUBECONFIG = '/root/.kube/config'
+		k8s_config = credentials('jenkins-k8s-config')
 		}
 
     stages {
@@ -27,29 +27,30 @@ pipeline {
               }
           }
 
-      stage('Code Checkout and build') {
-        steps {
-                checkout scm
-		sh 'mvn clean package'
-                echo "current branch: $BRANCH_NAME"
-              }
-          }
-                 
-      stage('Build docker master') {
-        steps {
-		script{
-                         def dockerImage= docker.build registry + ":$BUILD_NUMBER"
-                         docker.withRegistry( '', registryCredential ) {
-                                                                          dockerImage.push()
-                              }
-			 }
-                  }
-         }
+#      stage('Code Checkout and build') {
+#        steps {
+#                checkout scm
+#		sh 'mvn clean package'
+#                echo "current branch: $BRANCH_NAME"
+#              }
+#          }
+#                 
+#      stage('Build docker master') {
+#        steps {
+#		script{
+#                         def dockerImage= docker.build registry + ":$BUILD_NUMBER"
+#                         docker.withRegistry( '', registryCredential ) {
+#                                                                          dockerImage.push()
+#                              }
+#			 }
+#                  }
+#         }
 
       stage('Doploy images') {
 	steps {
-		withCredentials([kubeconfigFile(credentialsId: 'alik8s', variable: 'KUBECONFIG')]) {
- 		 sh 'kubectl get pods' 
+		sh "mkdir -p ~/.kube"
+		sh "echo ${k8s_config} | base64 -d > ~/.kube.config"
+ 		sh 'kubectl get pods' 
 			}	
 		}
 	}
