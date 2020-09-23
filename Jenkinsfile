@@ -14,7 +14,7 @@ pipeline {
 		registry = "douer423/cicd-demo"
 		registryCredential = 'douer423-docker'
                 dockerImage = ''
-		KUBECONFIG = '/home/u21699691/kubeconfig'
+		KUBECONFIG = '/root/.kube/config'
 		}
 
     stages {
