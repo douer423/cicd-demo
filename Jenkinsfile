@@ -29,9 +29,8 @@ pipeline {
 
       stage('Doploy images') {
 	steps {
-		sh "mkdir -p ~/.kube"
-		sh "echo ${k8s_config}" 
- 		sh 'kubectl get pods' 
+		sh "echo ${k8s_config} > ~/config" 
+ 		sh 'kubectl get all' 
 			}	
 		}
 	}
