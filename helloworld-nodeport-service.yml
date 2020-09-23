@@ -6,8 +6,9 @@ spec:
   ports:
   - port: 31001
     nodePort: 31001
-    targetPort: nodejs-port
+    targetPort: 8080
     protocol: TCP
   selector:
     app: helloworld
-  type: NodePort
+  #type: NodePort
+  type: LoadBalancer
