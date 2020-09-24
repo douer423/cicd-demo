@@ -9,6 +9,6 @@ public class AppController
     @RequestMapping("/")
         public String index() 
         {
-            return "Hello, World!v1\n";
+            return "Hello, World!v2\n";
         }
 }
