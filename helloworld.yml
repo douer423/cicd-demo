@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: k8s-springboot
-        image: douer423/cicd-demo:tag
+        image: douer423/cicd-demo:TAG
         ports:
         - name: nodejs-port
           containerPort: 8084

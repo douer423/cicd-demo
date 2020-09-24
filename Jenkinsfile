@@ -63,10 +63,16 @@ pipeline {
                   }
          }
 
+      stage('waiting for image push to docker hub') {
+        steps {
+		sh 'sleep 180'
+              }
+          }
+
       stage('Doploy images') {
 	steps {
 		sh "echo ${k8s_config} > ~/config" 
-	        sh 'sed -i "s/tag/${BUILD_NUMBER}/g" helloworld.yml'
+	        sh 'sed -i "s/TAG/${BUILD_NUMBER}/g" helloworld.yml'
 		sh 'kubectl apply -f ./helloworld.yml'
 		sh 'kubectl apply -f ./helloworld-nodeport-service.yml'
 			}	
